@@ -66,6 +66,11 @@ class Grille:
 		# On test les diagonales
 		if self.plateau[0][0] == 1 and self.plateau[1][1] == 1 and self.plateau[2][2] == 1:
 			return 1
+		elif self.plateau[0][0] == 2 and self.plateau[1][1] == 2 and self.plateau[2][2] == 2:
+			return 2
+
+		if self.plateau[0][2] == 1 and self.plateau[1][1] == 1 and self.plateau[2][0] == 1:
+			return 1
 		elif self.plateau[0][2] == 2 and self.plateau[1][1] == 2 and self.plateau[2][0] == 2:
 			return 2
 
