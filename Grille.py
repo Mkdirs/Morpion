@@ -39,17 +39,18 @@ class Grille:
 
 	def gagnant(self):
 		"""
-			retourne 0 s'il n'y a pas de gagnant
-			retourne 1 si le joueur 1 a gagné
-			retourne 2 si le joueur 2 a gagné
+			retourne le gagnant et les coordonnées des cases gagnantes
+			retourne 0, [] s'il n'y a pas de gagnant
+			retourne 1, [...] si le joueur 1 a gagné
+			retourne 2, [...] si le joueur 2 a gagné
 		"""
 
 		# On test ligne par ligne
 		for l in range(3):
 			if self.plateau[l] == [1]*3:
-				return 1
+				return 1, [(l, 0), (l, 1), (l, 2)]
 			elif self.plateau[l] == [2]*3:
-				return 2
+				return 2, [(l, 0), (l, 1), (l, 2)]
 
 		# On test colonne par colonne
 		for col in range(3):
@@ -58,25 +59,25 @@ class Grille:
 				T.append(self.plateau[l][col])
 
 			if T == [1]*3:
-				return 1
+				return 1, [(0, col), (1, col), (2, col)]
 			elif T == [2]*3:
-				return 2
+				return 2, [(0, col), (1, col), (2, col)]
 
 
 		# On test les diagonales
 		if self.plateau[0][0] == 1 and self.plateau[1][1] == 1 and self.plateau[2][2] == 1:
-			return 1
+			return 1, [(0, 0), (1, 1), (2, 2)]
 		elif self.plateau[0][0] == 2 and self.plateau[1][1] == 2 and self.plateau[2][2] == 2:
-			return 2
+			return 2, [(0, 0), (1, 1), (2, 2)]
 
 		if self.plateau[0][2] == 1 and self.plateau[1][1] == 1 and self.plateau[2][0] == 1:
-			return 1
+			return 1, [(0, 2), (1, 1), (2, 0)]
 		elif self.plateau[0][2] == 2 and self.plateau[1][1] == 2 and self.plateau[2][0] == 2:
-			return 2
+			return 2, [(0, 2), (1, 1), (2, 0)]
 
 
 		# Pas de gagnant
-		return 0
+		return 0, []
 
 
 	def est_rempli(self):

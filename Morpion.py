@@ -1,9 +1,10 @@
-from Controleur import *
 import pygame
+from Menu import *
 
 
 def jouer():
-    controleur = Controleur()
+    print("Prout !")
+    """controleur = Controleur()
     fini = False
     gagnant = 0
     print(controleur.grille.afficher())
@@ -30,23 +31,43 @@ def jouer():
 
     if reponse in "oO":
         jouer()
+    """
 
+
+MENU: Menu = None
+
+
+def play():
+    global MENU
+    MENU = Plateau()
+    MENU.fnc_changer_menu = home
+
+def home():
+    global MENU
+    MENU = Accueil()
+    MENU.fnc_changer_menu = play
 
 
 if __name__ == '__main__':
     pygame.init()
-    screen = pygame.display.set_mode((1000, 720))
     pygame.display.set_caption("Morpion")
-    font = pygame.font.SysFont(pygame.font.get_default_font(), 24)
+    screen = pygame.display.set_mode((1000, 720))
+
+    home()
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+
+        events = pygame.event.get()
+        for e in events:
+            if e.type == pygame.QUIT:
                 running = False
 
-        screen.fill((255, 255, 255))
-        txt = font.render("Hello World", True, [0]*3)
-        screen.blit(txt, (500-txt.get_width()/2, 720/2-txt.get_height()/2))
-        pygame.display.update()
+            MENU.on_event(e)
+
+        screen.fill([255] * 3)
+        MENU.update()
+        screen.blit(MENU.surface, (0, 0))
+
+        pygame.display.flip()
 
     pygame.quit()
